@@ -1,16 +1,31 @@
 import React from 'react';
 import * as ReactDOM from 'react-dom/client';
-import { ApolloClient, createHttpLink, InMemoryCache, ApolloProvider } from '@apollo/client';
+import {
+  ApolloClient,
+  createHttpLink,
+  InMemoryCache,
+  ApolloProvider,
+} from '@apollo/client';
+import {setContext} from '@apollo/client/link/context';
 import App from './App';
 
 const httpLink = createHttpLink({
-  uri: 'http://localhost:5000'
-})
+  uri: 'http://localhost:5000',
+});
+
+const authLink = setContext(() => {
+  const token = localStorage.getItem('jwtToken');
+  return {
+    headers: {
+      Authorization: token ? `Bearer ${token}` : '',
+    },
+  };
+});
 
 const client = new ApolloClient({
-  link: httpLink,
-  cache: new InMemoryCache()
-})
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
+});
 
 // Supported in React 18+
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -18,5 +33,5 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ApolloProvider client={client}>
     <App />
-  </ApolloProvider>,
+  </ApolloProvider>
 );

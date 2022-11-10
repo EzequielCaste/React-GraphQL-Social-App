@@ -30,7 +30,7 @@ const PostCard = ({
           {moment(createdAt).fromNow(true)}
         </Card.Meta>
         <Card.Description>
-          Steve wants to add you to the group <strong>best friends</strong>
+          {body}
         </Card.Description>
       </Card.Content>
       <Card.Content extra>
