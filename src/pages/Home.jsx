@@ -12,26 +12,25 @@ function Home() {
 
   const {user} = useContext(AuthContext);
 
-  if (posts) {
-    console.log(posts);
-  }
   return (
-    <Grid columns={3}>
+    <Grid columns={3} doubling stackable>
       <Grid.Row className="page-title">
         <h1>Recent Posts</h1>
       </Grid.Row>
-      <Grid.Row>
-        {user && (
+      {user && (
+        <Grid.Row>
           <Grid.Column>
             <PostForm />
           </Grid.Column>
-        )}
-        {loading ? (
+        </Grid.Row>
+      )}
+      {loading ? (
+        <Grid.Row className="page-title">
           <h1>Loading posts...</h1>
-        ) : (
-          <Transition.Group          
-          duration={400}          
-          >
+        </Grid.Row>
+      ) : (
+        <Grid.Row>
+          <Transition.Group duration={400}>
             {posts &&
               posts.map((post) => (
                 <Grid.Column key={post.id} style={{marginBottom: '20px'}}>
@@ -39,8 +38,8 @@ function Home() {
                 </Grid.Column>
               ))}
           </Transition.Group>
-        )}
-      </Grid.Row>
+        </Grid.Row>
+      )}
     </Grid>
   );
 }

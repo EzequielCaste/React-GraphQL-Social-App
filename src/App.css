@@ -2,7 +2,7 @@
   display: block !important;
   text-align: center;
   font-size: 2rem;
-  margin-top: 10px;
+  margin: 10px 0!important;
 }
 .form-container {
   width: 400px;
@@ -11,4 +11,8 @@
 .ui.teal.button:focus,
 .ui.teal.buttons .button:focus {
   background-color: #00b5ad;
+}
+
+.ui.menu {
+  margin: 3rem 0;
 }
