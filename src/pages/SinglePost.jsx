@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState, useRef} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import moment from 'moment';
 
@@ -9,14 +9,12 @@ import {AuthContext} from '../context/auth';
 
 import LikeButton from '../components/LikeButton';
 import DeleteButton from '../components/DeleteButton';
-import {useState} from 'react';
-import { useRef } from 'react';
 
 const SinglePost = (props) => {
   const {postId} = useParams();
   const {user} = useContext(AuthContext);
 
-  const commentInputRef= useRef(null);
+  const commentInputRef = useRef(null);
 
   const [comment, setComment] = useState('');
 
@@ -60,18 +58,19 @@ const SinglePost = (props) => {
     } = getPost;
 
     postMarkup = (
-      <Grid>
+      <Grid columns={2} doubling stackable>
         <Grid.Row>
-          <Grid.Column width={2}>
-            <Image
-              src="https://react.semantic-ui.com/images/avatar/large/jenny.jpg"
-              size="small"
-            />
-          </Grid.Column>
           <Grid.Column width={10}>
             <Card fluid>
               <Card.Content>
-                <Card.Header>{username}</Card.Header>
+                <Card.Header>
+                  <Image
+                    avatar
+                    circular
+                    src="https://react.semantic-ui.com/images/avatar/large/jenny.jpg"
+                  />
+                  {username}
+                </Card.Header>
                 <Card.Meta>{moment(createdAt).fromNow()}</Card.Meta>
                 <Card.Description>{body}</Card.Description>
               </Card.Content>

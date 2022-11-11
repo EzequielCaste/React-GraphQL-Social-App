@@ -2,7 +2,7 @@
   display: block !important;
   text-align: center;
   font-size: 2rem;
-  margin: 10px 0!important;
+  margin: 10px 0 !important;
 }
 .form-container {
   width: 300px;
@@ -15,4 +15,22 @@
 
 .ui.menu {
   margin: 3rem 0;
+}
+.ui.card .meta,
+.ui.cards > .card .meta {
+  margin: 10px 0;
+}
+@media only screen and (min-width: 450px) and (max-width: 991px) {
+  .ui.doubling.grid {
+    width: 400px;
+    margin: auto !important;
+  }
+}
+@media only screen and (min-width: 992px) and (max-width: 2000px) {
+  .ui.grid {
+    justify-content: center;
+  }
+  .ui.doubling.grid {
+    width: auto;    
+  }
 }

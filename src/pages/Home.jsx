@@ -12,14 +12,17 @@ function Home() {
 
   const {user} = useContext(AuthContext);
 
+  const COMPUTER_COLUMN = 9;
+  const TABLET_COLUMN = 16;
+
   return (
-    <Grid columns={3} doubling stackable>
+    <Grid doubling stackable >
       <Grid.Row className="page-title">
         <h1>Recent Posts</h1>
       </Grid.Row>
       {user && (
         <Grid.Row>
-          <Grid.Column>
+          <Grid.Column computer={COMPUTER_COLUMN}>
             <PostForm />
           </Grid.Column>
         </Grid.Row>
@@ -33,7 +36,7 @@ function Home() {
           <Transition.Group duration={400}>
             {posts &&
               posts.map((post) => (
-                <Grid.Column key={post.id} style={{marginBottom: '20px'}}>
+                <Grid.Column tablet={TABLET_COLUMN} computer={COMPUTER_COLUMN} key={post.id} style={{marginBottom: '20px'}}>
                   <PostCard post={post} />
                 </Grid.Column>
               ))}
