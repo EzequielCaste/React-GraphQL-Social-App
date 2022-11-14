@@ -28,3 +28,22 @@ node index.js
 cd React-GraphQL-Social-App/client
 npm run dev
 ```
+### Libraries
+- Client:
+  - Vite
+  - Apollo Client
+  - GraphQL
+  - React Router DOM v6
+  - JWT Decode
+  - Moment.js
+  - Semantic UI
+- Server: 
+  - Apollo Server
+  - GraphQL
+  - Mongoose
+  - JSON Web Token
+  - Bcryptjs
+  
+### Deployment
+- Client deployed to Netlify
+- Server deployed to Fly.io
