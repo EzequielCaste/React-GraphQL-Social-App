@@ -30,20 +30,20 @@ npm run dev
 ```
 ### Libraries
 - Client:
-  - Vite
-  - Apollo Client
-  - GraphQL
-  - React Router DOM v6
-  - JWT Decode
-  - Moment.js
-  - Semantic UI
+  - [Vite](https://vitejs.dev/)
+  - [Apollo Client](https://www.apollographql.com/docs/react/)
+  - [GraphQL](https://graphql.org/learn/)
+  - [React Router DOM v6](https://reactrouter.com/en/main)
+  - [JWT Decode](https://www.npmjs.com/package/jwt-decode)
+  - [Moment.js](https://momentjs.com/docs/)
+  - [Semantic UI](https://semantic-ui.com/introduction/getting-started.html)
 - Server: 
-  - Apollo Server
-  - GraphQL
-  - Mongoose
-  - JSON Web Token
-  - Bcryptjs
+  - [Apollo Server](https://www.apollographql.com/docs/apollo-server/getting-started)
+  - [GraphQL](https://graphql.org/learn/)
+  - [Mongoose](https://mongoosejs.com/docs/guide.html)
+  - [JSON Web Token](https://jwt.io/introduction)
+  - [Bcryptjs](https://www.npmjs.com/package/bcryptjs)
   
 ### Deployment
-- Client deployed to Netlify
+- Client deployed to [Netlify](https://ezecaste-social-app.netlify.app/)
 - Server deployed to Fly.io
