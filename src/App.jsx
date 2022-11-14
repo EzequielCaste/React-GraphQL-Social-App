@@ -13,6 +13,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import SinglePost from './pages/SinglePost';
+import Footer from './pages/Footer';
 
 function App() {
   return (
@@ -21,7 +22,11 @@ function App() {
         <Container>
           <MenuBar />
           <Routes>
-            <Route exact path="/" element={<Home />} />
+            <Route 
+              exact 
+              path="/" 
+              element={<Home />} 
+            />
             <Route
               exact
               path="/login"
@@ -40,9 +45,13 @@ function App() {
                 </AuthRoute>
               }
             />
-            <Route exact path="/posts/:postId" element={<SinglePost />} />
+            <Route 
+              exact 
+              path="/posts/:postId" 
+              element={<SinglePost />} 
+            />
           </Routes>
-          
+          <Footer />
         </Container>
       </Router>
     </AuthProvider>
