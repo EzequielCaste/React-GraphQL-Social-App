@@ -26,5 +26,5 @@ node index.js
 ### Strart the Client
 ```
 cd React-GraphQL-Social-App/client
-npm start
+npm run dev
 ```
