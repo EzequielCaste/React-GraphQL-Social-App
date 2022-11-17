@@ -44,6 +44,38 @@ module.exports = {
 
       return post;
     },
+    async updatePost(_, { postId, body }, context){
+      const user = checkAuth(context);
+
+      try {
+        const post = await Post.findById(postId);
+
+        if(post){
+          post.body = body;
+          await post.save();
+          return post;
+        } else {
+          throw new UserInputError('Post not found');
+        }
+      } catch (error) {
+        throw new Error(error);
+      }
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    },
     async deletePost(_, { postId }, context){
       const user = checkAuth(context);
       

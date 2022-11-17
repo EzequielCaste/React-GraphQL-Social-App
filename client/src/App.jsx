@@ -50,6 +50,11 @@ function App() {
               path="/posts/:postId" 
               element={<SinglePost />} 
             />
+            <Route 
+              exact 
+              path="/posts/edit/:postId" 
+              element={<SinglePost edit={true}/>} 
+            />
           </Routes>
           <Footer />
         </Container>

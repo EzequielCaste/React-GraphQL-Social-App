@@ -2,7 +2,7 @@ import React, {useContext, useState, useRef} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import moment from 'moment';
 
-import {Button, Card, Form, Icon, Image, Grid, Label} from 'semantic-ui-react';
+import {Button, Card, TextArea, Form, Icon, Image, Grid, Label} from 'semantic-ui-react';
 
 import {gql, useMutation, useQuery} from '@apollo/client';
 import {AuthContext} from '../context/auth';
@@ -10,9 +10,10 @@ import {AuthContext} from '../context/auth';
 import LikeButton from '../components/LikeButton';
 import DeleteButton from '../components/DeleteButton';
 
-const SinglePost = (props) => {
+const SinglePost = ({edit = false}) => {
   const {postId} = useParams();
   const {user} = useContext(AuthContext);
+  const [inputValue, setInputValue] = useState('')
 
   const commentInputRef = useRef(null);
 
@@ -75,26 +76,28 @@ const SinglePost = (props) => {
                 <Card.Description>{body}</Card.Description>
               </Card.Content>
               <hr />
-              <Card.Content extra>
-                <LikeButton user={user} post={{id, likeCount, likes}} />
-                <Button
-                  as="div"
-                  labelPosition="right"
-                  onClick={() => console.log('comment on post')}
-                >
-                  <Button color="blue" basic>
-                    <Icon name="comments" />
+              {!edit && (
+                <Card.Content extra>
+                  <LikeButton user={user} post={{id, likeCount, likes}} />
+                  <Button
+                    as="div"
+                    labelPosition="right"
+                    onClick={() => console.log('comment on post')}
+                  >
+                    <Button color="blue" basic>
+                      <Icon name="comments" />
+                    </Button>
+                    <Label basic color="blue" pointing="left">
+                      {commentCount}
+                    </Label>
                   </Button>
-                  <Label basic color="blue" pointing="left">
-                    {commentCount}
-                  </Label>
-                </Button>
-                {user && user.username === username && (
-                  <DeleteButton postId={id} callback={deletePostCallback} />
-                )}
-              </Card.Content>
+                  {user && user.username === username && (
+                    <DeleteButton postId={id} callback={deletePostCallback} />
+                  )}
+                </Card.Content>
+              )}
             </Card>
-            {user && (
+            {user && !edit && (
               <Card fluid>
                 <Card.Content>
                   <p>Post a comment</p>
@@ -121,18 +124,19 @@ const SinglePost = (props) => {
                 </Card.Content>
               </Card>
             )}
-            {comments.map((comment) => (
-              <Card fluid key={comment.id}>
-                <Card.Content>
-                  {user && user.username === comment.username && (
-                    <DeleteButton postId={id} commentId={comment.id} />
-                  )}
-                  <Card.Header>{comment.username}</Card.Header>
-                  <Card.Meta>{moment(comment.createdAt).fromNow()}</Card.Meta>
-                  <Card.Description>{comment.body}</Card.Description>
-                </Card.Content>
-              </Card>
-            ))}
+            {!edit &&
+              comments.map((comment) => (
+                <Card fluid key={comment.id}>
+                  <Card.Content>
+                    {user && user.username === comment.username && (
+                      <DeleteButton postId={id} commentId={comment.id} />
+                    )}
+                    <Card.Header>{comment.username}</Card.Header>
+                    <Card.Meta>{moment(comment.createdAt).fromNow()}</Card.Meta>
+                    <Card.Description>{comment.body}</Card.Description>
+                  </Card.Content>
+                </Card>
+              ))}
           </Grid.Column>
         </Grid.Row>
       </Grid>
