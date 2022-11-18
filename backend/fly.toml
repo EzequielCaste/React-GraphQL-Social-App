@@ -1,6 +1,6 @@
-# fly.toml file generated for blue-water-7022 on 2022-11-14T19:29:40-03:00
+# fly.toml file generated for merng on 2022-11-14T19:29:40-03:00
 
-app = "blue-water-7022"
+app = "merng"
 kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []

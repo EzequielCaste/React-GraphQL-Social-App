@@ -6,7 +6,7 @@ import MyPopup from '../util/MyPopup';
 
 import { useForm } from '../util/hooks';
 
-const EditButton = ({ postId, postBody }) => {
+const EditButton = ({ buttonSize, postId, postBody }) => {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [openModal, setOpenModal] = useState(false);
 
@@ -31,6 +31,7 @@ const EditButton = ({ postId, postBody }) => {
       <MyPopup
         content='Edit post'>
         <Button
+          size={buttonSize}
           onClick={() => setOpenModal(true)}
           color="blue"
           floated="right"

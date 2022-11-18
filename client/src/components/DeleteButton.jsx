@@ -6,7 +6,7 @@ import MyPopup from '../util/MyPopup';
 
 import {FETCH_POSTS_QUERY} from '../util/graphql';
 
-const DeleteButton = ({postId, commentId, callback}) => {
+const DeleteButton = ({buttonSize, postId, commentId, callback}) => {
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   const mutation = commentId ? DELETE_COMMENT_MUTATION : DELETE_POST_MUTATION;
@@ -38,6 +38,7 @@ const DeleteButton = ({postId, commentId, callback}) => {
       <MyPopup
         content={`Delete ${commentId ? 'comment' : 'post'}`}>
           <Button
+            size={buttonSize}
             as="div"
             color="red"
             floated="right"

@@ -1,20 +1,16 @@
-import React, {useContext} from 'react';
-import {Link} from 'react-router-dom';
-
-import {Button, Card, Icon, Image, Label} from 'semantic-ui-react';
-
-import MyPopup from '../util/MyPopup';
-
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import { Card, Image } from 'semantic-ui-react';
 import moment from 'moment';
-import {AuthContext} from '../context/auth';
-import LikeButton from './LikeButton';
-import DeleteButton from './DeleteButton';
-import EditButton from './EditButton';
+import { AuthContext } from '../context/auth';
+import CardsButtons from './CardsButtons';
 
 const PostCard = ({
-  post: {body, createdAt, id, username, likeCount, commentCount, likes},
+  post: { body, createdAt, id, username, likeCount, commentCount, likes },
 }) => {
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);  
+
+  const buttonSize = window.screen.width > 500 ? 'medium' : 'mini'
 
   return (
     <Card fluid>
@@ -31,20 +27,7 @@ const PostCard = ({
         <Card.Description>{body}</Card.Description>
       </Card.Content>
       <Card.Content extra>
-        <LikeButton user={user} post={{id, likes, likeCount}} />
-        <MyPopup          
-          content="Comment on post">
-            <Button labelPosition="right" as={Link} to={`/posts/${id}`}>
-              <Button color="blue" basic>
-                <Icon name="comments" />
-              </Button>
-              <Label basic color="blue" pointing="left">
-                {commentCount}
-              </Label>
-            </Button>
-          </MyPopup>
-        {user && user.username === username && <DeleteButton postId={id} />}
-        {user && user.username === username && <EditButton postId={id} postBody={body} />}
+        <CardsButtons user={{user, username}} buttonSize={buttonSize} post={{ id, likes, likeCount, commentCount, body }} />        
       </Card.Content>
     </Card>
   );
