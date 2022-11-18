@@ -5,7 +5,7 @@ import {faLinkedin, faTwitterSquare} from '@fortawesome/free-brands-svg-icons';
 
 const Footer = () => {
   return (
-    <div className="ui  vertical footer segment">
+    <div className="ui vertical footer segment">
       <div className="ui center aligned container horizontal small divided link list">
         <div className="">
           &copy; 2022 Ezequiel Castellanos{' '}

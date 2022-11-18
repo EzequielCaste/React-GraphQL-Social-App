@@ -26,6 +26,14 @@
 .ui.cards > .card .meta {
   margin: 10px 0;
 }
+
+@media (max-width: 500px) {
+  .ui.divided.horizontal.list {
+    width: 90%!important;
+    margin-top: 3rem;
+  }
+}
+
 @media only screen and (min-width: 450px) and (max-width: 991px) {
   .ui.doubling.grid {
     width: 400px;

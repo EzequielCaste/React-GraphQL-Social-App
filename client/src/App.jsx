@@ -9,11 +9,11 @@ import AuthRoute from './util/AuthRoute';
 import {AuthProvider} from './context/auth';
 
 import MenuBar from './components/MenuBar';
+import Footer from './components/Footer';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import SinglePost from './pages/SinglePost';
-import Footer from './pages/Footer';
 
 function App() {
   return (
