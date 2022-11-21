@@ -2,7 +2,7 @@ import React, {useContext, useState, useRef} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import moment from 'moment';
 
-import {Button, Card, TextArea, Form, Icon, Image, Grid, Label} from 'semantic-ui-react';
+import {Button, Card, Form, Icon, Image, Grid, Label, Header} from 'semantic-ui-react';
 
 import {gql, useMutation, useQuery} from '@apollo/client';
 import {AuthContext} from '../context/auth';
@@ -13,10 +13,7 @@ import DeleteButton from '../components/DeleteButton';
 const SinglePost = ({edit = false}) => {
   const {postId} = useParams();
   const {user} = useContext(AuthContext);
-  const [inputValue, setInputValue] = useState('')
-
   const commentInputRef = useRef(null);
-
   const [comment, setComment] = useState('');
 
   const {data: {getPost} = {}} = useQuery(FETCH_POST_QUERY, {
@@ -45,7 +42,7 @@ const SinglePost = ({edit = false}) => {
   let postMarkup;
 
   if (!getPost) {
-    postMarkup = <p>Loading post...</p>;
+    postMarkup = <Header as="h2" textAlign='center'>Loading post...</Header>;
   } else {
     const {
       id,
