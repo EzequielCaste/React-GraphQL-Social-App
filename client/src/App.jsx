@@ -1,12 +1,12 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import {Container} from 'semantic-ui-react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Container } from 'semantic-ui-react';
 
 import 'semantic-ui-css/semantic.min.css';
 import './App.css';
 
 import AuthRoute from './util/AuthRoute';
-import {AuthProvider} from './context/auth';
+import { AuthProvider } from './context/auth';
 
 import MenuBar from './components/MenuBar';
 import Footer from './components/Footer';
@@ -15,7 +15,8 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import SinglePost from './pages/SinglePost';
 
-function App() {
+function App() {  
+
   return (
     <AuthProvider>
       <Router>

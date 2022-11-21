@@ -9,6 +9,8 @@ import {
 import {setContext} from '@apollo/client/link/context';
 import App from './App';
 
+import ThemeProvider from './context/theme';
+
 const httpLink = createHttpLink({
   uri: 'https://merng.fly.dev/',
 });
@@ -32,6 +34,8 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <ApolloProvider client={client}>
-    <App />
+    <ThemeProvider>
+      <App />
+    </ThemeProvider>    
   </ApolloProvider>
 );

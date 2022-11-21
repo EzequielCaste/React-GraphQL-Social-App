@@ -1,20 +1,38 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu } from 'semantic-ui-react';
+import { Icon, Menu } from 'semantic-ui-react';
 
 import { AuthContext } from '../context/auth';
+import { ThemeContext } from '../context/theme';
 
 function MenuBar() {
   const { user, logout } = useContext(AuthContext);
   const pathname = window.location.pathname;
   const path = pathname === '/' ? 'home' : pathname.substring(1);
   const [activeItem, setActiveItem] = useState(path);
+  const { isDarkTheme, toggleTheme } = useContext(ThemeContext);
 
   const handleItemClick = (e, { name }) => setActiveItem(name);
 
+  console.log(isDarkTheme)
+
+  const MenuStyle = isDarkTheme ? {
+    inverted: true,
+    pointing: false,
+    secondary: false,
+    size: 'massive',
+  } : {
+    pointing: true,
+    secondary: true,
+    size: 'massive',
+    color: 'teal'
+  }
+
+  console.log(MenuStyle)
+
   const menuBar = user ? (
     (
-      <Menu pointing secondary size='massive' color='teal'>
+      <Menu {...MenuStyle} >
         <Menu.Item
           name={user.username}
           active
@@ -25,12 +43,18 @@ function MenuBar() {
           <Menu.Item
             name='logout'
             onClick={logout}
-          />          
+          />
+          <Menu.Item
+          name='theme'
+          onClick={toggleTheme}          
+        >
+          <Icon name={isDarkTheme ? 'sun' : 'moon'} />
+        </Menu.Item>
         </Menu.Menu>
       </Menu>
     )
   ) : (
-    <Menu pointing secondary size='massive' color='teal'>
+    <Menu {...MenuStyle} >
       <Menu.Item
         name='home'
         active={activeItem === 'home'}
@@ -53,6 +77,13 @@ function MenuBar() {
           as={Link}
           to="/register"
         />
+        <Menu.Item
+          name='theme'
+          onClick={toggleTheme}
+          
+        >
+          <Icon name={isDarkTheme ? 'sun' : 'moon'} />
+        </Menu.Item>
       </Menu.Menu>
     </Menu>
   )
