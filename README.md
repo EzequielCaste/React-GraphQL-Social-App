@@ -6,6 +6,15 @@ Build a Social Media App to learn **GraphQL** following the classes of [Ahmed Ha
 
 Basically a social media app clone where users can register, login, create posts, like posts, and comment on them.
 
+## Features
+
+I'm going to add the following features to improve on the base project:
+- [X] Allow user to edit their post
+- [X] Responsive layout for Mobile and Tablet
+- [ ] Light/Dark Theme Selector
+
+
+
 ### Deployed to Netlify
 
 [Visit the app](https://ezecaste-social-app.netlify.app/)
