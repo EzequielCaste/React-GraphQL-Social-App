@@ -11,7 +11,7 @@ Basically a social media app clone where users can register, login, create posts
 I'm going to add the following features to improve on the base project:
 - [X] Allow user to edit their post
 - [X] Responsive layout for Mobile and Tablet
-- [ ] Light/Dark Theme Selector
+- [X] Light/Dark Theme Selector
 - [ ] User Profile
 
 
