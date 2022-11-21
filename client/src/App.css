@@ -48,3 +48,25 @@
     width: auto;    
   }
 }
+
+body {
+  background: azure;
+}
+.dark {
+  background: #1b1c1df7;
+  color: #fff!important;
+}
+.dark .ui.form .field>label {
+  color: #fff!important;
+}
+.dark .ui.fluid.card {
+  background: #EFFBFF;
+}
+.dark .ui.basic.teal.label,
+.dark .ui.basic.blue.label {
+  background: #EFFBFF!important;
+}
+.content > p,
+.ui.modal>.content {
+  color: rgba(0,0,0,.85);
+}

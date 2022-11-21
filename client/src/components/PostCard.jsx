@@ -4,16 +4,18 @@ import { Card, Image } from 'semantic-ui-react';
 import moment from 'moment';
 import { AuthContext } from '../context/auth';
 import CardsButtons from './CardsButtons';
+import { ThemeContext } from '../context/theme';
 
 const PostCard = ({
   post: { body, createdAt, id, username, likeCount, commentCount, likes },
 }) => {
   const { user } = useContext(AuthContext);  
+  const { isDarkTheme } = useContext(ThemeContext);
 
   const buttonSize = window.screen.width > 500 ? 'medium' : 'mini'
 
   return (
-    <Card fluid>
+    <Card fluid className={isDarkTheme ? 'dark' : null}>
       <Card.Content>
         <Image
           floated="right"
