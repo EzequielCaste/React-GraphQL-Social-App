@@ -6,12 +6,19 @@ export const ThemeContext = createContext({
 });
 
 function ThemeProvider(props){
-  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const currentTheme = localStorage.getItem('isDarkTheme') === 'false' ? false : true;
 
-  const toggleTheme = () => {
-    localStorage.setItem('isDarkTheme', !isDarkTheme);
-    document.body.classList.toggle('dark')
+  const [isDarkTheme, setIsDarkTheme] = useState(currentTheme);
+
+  if(isDarkTheme) {
+    document.body.classList.contains('dark') ? document.body.classList.toggle('dark') : document.body.classList.add('dark')
+  } else {
+    document.body.classList.remove('dark')
+  }
+
+  function toggleTheme() {
     setIsDarkTheme(!isDarkTheme)
+    localStorage.setItem('isDarkTheme', !isDarkTheme)
   }
 
   return (

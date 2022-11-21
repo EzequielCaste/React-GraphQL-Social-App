@@ -59,11 +59,11 @@ body {
 .dark .ui.form .field>label {
   color: #fff!important;
 }
-.ui.fluid.card {
+.dark .ui.fluid.card {
   background: #EFFBFF;
 }
-.ui.basic.teal.label,
-.ui.basic.blue.label {
+.dark .ui.basic.teal.label,
+.dark .ui.basic.blue.label {
   background: #EFFBFF!important;
 }
 .content > p,

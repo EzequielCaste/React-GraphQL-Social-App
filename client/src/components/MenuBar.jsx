@@ -14,21 +14,18 @@ function MenuBar() {
 
   const handleItemClick = (e, { name }) => setActiveItem(name);
 
-  console.log(isDarkTheme)
-
   const MenuStyle = isDarkTheme ? {
     inverted: true,
     pointing: false,
     secondary: false,
     size: 'massive',
   } : {
+    inverted: false,
     pointing: true,
     secondary: true,
     size: 'massive',
     color: 'teal'
-  }
-
-  console.log(MenuStyle)
+  }  
 
   const menuBar = user ? (
     (
