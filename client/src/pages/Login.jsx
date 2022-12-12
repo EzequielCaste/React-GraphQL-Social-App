@@ -19,6 +19,7 @@ function Login(props) {
 
   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
     update(_, { data: { login: userData }}) {  
+      context.login(userData);
       navigate('/');
     },
     onError(err){
