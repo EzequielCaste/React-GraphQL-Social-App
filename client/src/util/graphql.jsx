@@ -5,9 +5,11 @@ export const FETCH_POSTS_QUERY = gql`
     getPosts {
       id
       body
+      user {
+        photoURL
+      }
       createdAt
       username
-      profile
       likeCount
       likes {
         username

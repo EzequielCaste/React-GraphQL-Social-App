@@ -7,7 +7,7 @@ import CardsButtons from './CardsButtons';
 import { ThemeContext } from '../context/theme';
 
 const PostCard = ({
-  post: { body, createdAt, id, username, profile, likeCount, commentCount, likes },
+  post: { body, createdAt, id, username, user: { photoURL }, likeCount, commentCount, likes },
 }) => {
   const { user } = useContext(AuthContext);  
   const { isDarkTheme } = useContext(ThemeContext);
@@ -20,7 +20,7 @@ const PostCard = ({
         <Image
           floated="right"
           size="mini"
-          src={profile}
+          src={photoURL}
         />
         <Card.Header>{username}</Card.Header>
         <Card.Meta as={Link} to={`/posts/${id}`}>

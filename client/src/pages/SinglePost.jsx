@@ -49,9 +49,9 @@ const SinglePost = ({edit = false}) => {
     const {
       id,
       body,
+      user: { photoURL },
       createdAt,
       username,
-      profile,
       comments,
       likes,
       likeCount,
@@ -70,7 +70,7 @@ const SinglePost = ({edit = false}) => {
                   <Image
                     avatar
                     circular
-                    src={profile}
+                    src={photoURL}
                   />
                   {username}
                 </Card.Header>
@@ -153,9 +153,11 @@ export const FETCH_POST_QUERY = gql`
     getPost(postId: $postId) {
       id
       body
+      user {
+        photoURL
+      }
       createdAt
       username
-      profile
       likeCount
       likes {
         username

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { gql, useMutation } from '@apollo/client';
-import { Button, Card, Form, TextArea, Icon, Image, Modal, Container, Popup } from 'semantic-ui-react';
+import { Button, Card, Form, Icon, Image, Modal, Container, Popup } from 'semantic-ui-react';
 import { AuthContext } from '../context/auth';
 import { useForm } from '../util/hooks';
 
@@ -80,12 +80,13 @@ const UserProfile = ({ edit = false }) => {
           <Modal.Header>Change profile picture</Modal.Header>
           <Modal.Content>
             <Form onSubmit={onSubmit} >
-              <Form.Field
+              {/* <Form.Field
                 control={TextArea}
                 name="photoURL"
                 value={values.photoURL}
                 onChange={onChange}
-              />
+              /> */}
+
             </Form>
           </Modal.Content>
           <Modal.Actions>
