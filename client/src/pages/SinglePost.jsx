@@ -41,19 +41,24 @@ const SinglePost = ({edit = false}) => {
 
   let postMarkup;
 
-  if (!getPost) {
+
+  if(!getPost) {
     postMarkup = <Header as="h2" textAlign='center'>Loading post...</Header>;
   } else {
+
     const {
       id,
       body,
       createdAt,
       username,
+      profile,
       comments,
       likes,
       likeCount,
       commentCount,
     } = getPost;
+
+
 
     postMarkup = (
       <Grid columns={2} doubling stackable>
@@ -65,7 +70,7 @@ const SinglePost = ({edit = false}) => {
                   <Image
                     avatar
                     circular
-                    src="https://react.semantic-ui.com/images/avatar/large/jenny.jpg"
+                    src={profile}
                   />
                   {username}
                 </Card.Header>
@@ -150,6 +155,7 @@ export const FETCH_POST_QUERY = gql`
       body
       createdAt
       username
+      profile
       likeCount
       likes {
         username

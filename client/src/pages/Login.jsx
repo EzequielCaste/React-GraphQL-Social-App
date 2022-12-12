@@ -19,11 +19,10 @@ function Login(props) {
 
   const [loginUser, { loading }] = useMutation(LOGIN_USER, {
     update(_, { data: { login: userData }}) {  
-      context.login(userData);
       navigate('/');
     },
     onError(err){
-      setErrors(err.graphQLErrors[0].extensions.exception.errors);
+      setErrors(err.graphQLErrors[0]?.extensions.exception.errors);
     },
     variables: values,
   });
@@ -83,7 +82,8 @@ const LOGIN_USER = gql`
       email
       username
       createdAt
-      token
+      photoURL
+      token      
     }
   }
 `;

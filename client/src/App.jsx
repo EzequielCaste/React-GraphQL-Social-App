@@ -14,6 +14,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import SinglePost from './pages/SinglePost';
+import UserProfile from './pages/UserProfile';
 
 function App() {  
 
@@ -55,6 +56,11 @@ function App() {
               exact 
               path="/posts/edit/:postId" 
               element={<SinglePost edit={true}/>} 
+            />
+            <Route 
+              exact 
+              path="/user/:userId" 
+              element={<UserProfile />} 
             />
           </Routes>
           <Footer />
