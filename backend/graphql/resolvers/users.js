@@ -64,11 +64,13 @@ module.exports = {
 
       const res = await user.save();      
 
+      const token = generateToken(res);
+
       return {
         ...res._doc,
-        id: res._id        
+        id: user._id,
+        token
       }
-
     },
     async register(_, { registerInput: { username, email, password, confirmPassword } }) {
       //Validate user data

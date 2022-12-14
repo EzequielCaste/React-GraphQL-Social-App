@@ -1,35 +1,62 @@
 import React, { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { gql, useMutation } from '@apollo/client';
-import { Button, Card, Form, Icon, Image, Modal, Container, Popup } from 'semantic-ui-react';
+import { Button, Card, Form, Icon, Image, Input, TextArea, Modal, Container, Popup } from 'semantic-ui-react';
 import { AuthContext } from '../context/auth';
 import { useForm } from '../util/hooks';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { storage } from '../util/firestore';
+import { useEffect } from 'react';
 
 const UserProfile = ({ edit = false }) => {
   const [openModal, setOpenModal] = useState(false);
-
+  const [file, setFile] = useState("undefined")
   const { userId } = useParams();
-
   const { user } = useContext(AuthContext);
+
+  const [newPhoto, setNewPhoto] = useState(user.photoURL)
 
   const imageEditIcon = { position: 'absolute', margin: 0, top: 5, right: 5 }
 
   const { values, onChange, onSubmit } = useForm(updateProfileCallback, {
-    photoURL: user.photoURL
+    photoURL: newPhoto
   });
 
+  useEffect(() => {
+    if(user.photoURL !== newPhoto) {
+      updateUserMutation() 
+    }
+  }, [newPhoto])
+
   const [updateUserMutation, { loading }] = useMutation(UPDATE_USER_MUTATION, {
-    update() {
-      setOpenModal(false);
-    },
     variables: {
       userId,
-      photoURL: values.photoURL
+      photoURL: newPhoto
     },
+    update(store, { data: {updateUser} }) {      
+      localStorage.setItem('jwtToken', updateUser.token)
+      setOpenModal(false);
+      values.photoURL = '';
+    },
+    
   });
 
   function updateProfileCallback() {
-    updateUserMutation()
+    uploadImage();    
+  }
+
+  const uploadImage = async () => {
+    if (file === null) return;
+
+    const imageRef = ref(storage, `images/${file.name}`)
+
+    await uploadBytes(imageRef, file)
+    .then((snapshot) => {
+      getDownloadURL(snapshot.ref)
+      .then(url => {
+        setNewPhoto(url)
+      })
+    })
   }
 
   if (user && user.id === userId) {
@@ -38,8 +65,16 @@ const UserProfile = ({ edit = false }) => {
         <h1>User Profile</h1>
         <Card centered>
           <Image
-            src={user.photoURL}
+            src={newPhoto}
           />
+          {openModal ? <Form onSubmit={onSubmit} >
+            <Button as="label" htmlFor="file" type="button">
+              Choose file
+            </Button>
+            <input type="file" id="file" style={{ display: "none" }} onChange={e => setFile(e.target.files[0])} />
+            {/* <Input fluid onChange={e => setFile(e.target.files[0])} type="file" /> */}
+            <Button primary type="submit">Upload image</Button>
+          </Form> : null}
           <Popup
             trigger={
               <Button
@@ -47,7 +82,7 @@ const UserProfile = ({ edit = false }) => {
                 inverted
                 icon="edit"
                 style={imageEditIcon}
-                onClick={() => setOpenModal(true)}
+                onClick={() => setOpenModal(!openModal)}
               />
             }
           >
@@ -71,7 +106,7 @@ const UserProfile = ({ edit = false }) => {
           </Card.Content>
         </Card>
 
-        <Modal
+        {/* <Modal
           dimmer="blurring"
           size="mini"
           open={openModal}
@@ -80,12 +115,13 @@ const UserProfile = ({ edit = false }) => {
           <Modal.Header>Change profile picture</Modal.Header>
           <Modal.Content>
             <Form onSubmit={onSubmit} >
-              {/* <Form.Field
+              <Form.Field
                 control={TextArea}
                 name="photoURL"
                 value={values.photoURL}
                 onChange={onChange}
-              /> */}
+              />
+              
 
             </Form>
           </Modal.Content>
@@ -97,7 +133,7 @@ const UserProfile = ({ edit = false }) => {
               Save
             </Button>
           </Modal.Actions>
-        </Modal>
+        </Modal> */}
       </Container>)
   }
 
@@ -116,6 +152,7 @@ const UPDATE_USER_MUTATION = gql`
       username
       createdAt
       photoURL
+      token
     }
   }
 `;
