@@ -10,13 +10,24 @@ function generateToken(user){
   return jwt.sign({
     id: user.id,
     email: user.email,
-    username: user.username
+    username: user.username,
+    photoURL: user.photoURL
   }, process.env.SECRET_KEY, {
     expiresIn: '1h'
   });
 }
 
 module.exports = {
+  Query: {
+    async getUsers() {
+      try {
+        const users = await User.find();
+        return users;
+      } catch (error) {
+        throw new Error(error);
+      }
+    }
+  },
   Mutation: {
     async login(_, { username, password }) {
       const { errors, valid } = validateLoginInput(username, password);
@@ -46,13 +57,28 @@ module.exports = {
         token
       }
     },
+    async updateUser(_, { userId, photoURL }) {
+      const user = await User.findById(userId).exec();
+      
+      user.photoURL = photoURL;
+
+      const res = await user.save();      
+
+      const token = generateToken(res);
+
+      return {
+        ...res._doc,
+        id: user._id,
+        token
+      }
+    },
     async register(_, { registerInput: { username, email, password, confirmPassword } }) {
       //Validate user data
       const { valid, errors } = validateRegisterInput(username, email, password, confirmPassword);
       if(!valid) {
         throw new UserInputError('Errors', {errors})
       }
-      //TODO: Make sure user doesnt already exist
+
       const user = await User.findOne({
         username
       });

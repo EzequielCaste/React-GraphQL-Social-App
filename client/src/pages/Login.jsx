@@ -23,7 +23,7 @@ function Login(props) {
       navigate('/');
     },
     onError(err){
-      setErrors(err.graphQLErrors[0].extensions.exception.errors);
+      setErrors(err.graphQLErrors[0]?.extensions.exception.errors);
     },
     variables: values,
   });
@@ -83,7 +83,8 @@ const LOGIN_USER = gql`
       email
       username
       createdAt
-      token
+      photoURL
+      token      
     }
   }
 `;

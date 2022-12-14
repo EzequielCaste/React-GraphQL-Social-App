@@ -14,8 +14,9 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import SinglePost from './pages/SinglePost';
+import UserProfile from './pages/UserProfile';
 
-function App() {  
+function App() {
 
   return (
     <AuthProvider>
@@ -23,10 +24,10 @@ function App() {
         <Container>
           <MenuBar />
           <Routes>
-            <Route 
-              exact 
-              path="/" 
-              element={<Home />} 
+            <Route
+              exact
+              path="/"
+              element={<Home />}
             />
             <Route
               exact
@@ -46,15 +47,22 @@ function App() {
                 </AuthRoute>
               }
             />
-            <Route 
-              exact 
-              path="/posts/:postId" 
-              element={<SinglePost />} 
+            <Route
+              exact
+              path="/posts/:postId"
+              element={<SinglePost />}
             />
-            <Route 
-              exact 
-              path="/posts/edit/:postId" 
-              element={<SinglePost edit={true}/>} 
+            <Route
+              exact
+              path="/posts/edit/:postId"
+              element={<SinglePost edit={true} />}
+            />
+            <Route
+              exact
+              path="/user/:userId"
+              element={
+                <UserProfile />
+              }
             />
           </Routes>
           <Footer />

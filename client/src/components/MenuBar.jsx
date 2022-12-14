@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { Icon, Menu } from 'semantic-ui-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Icon, Menu, Dropdown} from 'semantic-ui-react';
 
 import { AuthContext } from '../context/auth';
 import { ThemeContext } from '../context/theme';
@@ -11,8 +11,14 @@ function MenuBar() {
   const path = pathname === '/' ? 'home' : pathname.substring(1);
   const [activeItem, setActiveItem] = useState(path);
   const { isDarkTheme, toggleTheme } = useContext(ThemeContext);
+  let navigate = useNavigate();
 
   const handleItemClick = (e, { name }) => setActiveItem(name);
+
+  const handleLogout = () => {
+    logout()
+    navigate('/')
+  }
 
   const MenuStyle = isDarkTheme ? {
     inverted: true,
@@ -29,17 +35,23 @@ function MenuBar() {
 
   const menuBar = user ? (
     (
-      <Menu {...MenuStyle} >
-        <Menu.Item
-          name={user.username}
-          active
-          as={Link}
-          to="/"
-        />
-        <Menu.Menu position='right'>
+      <Menu {...MenuStyle}>
+        <Dropdown item icon="home" >
+
+        <Dropdown.Menu>         
+          <Dropdown.Item as={Link} to={`/user/${user.id}`}>
+            {
+              user.username.substring(0,1).toUpperCase() + user.username.substring(1) + '\'s'
+            } Profile
+          </Dropdown.Item>          
+        </Dropdown.Menu>
+
+      </Dropdown>
+
+      <Menu.Menu position='right'>
           <Menu.Item
             name='logout'
-            onClick={logout}
+            onClick={handleLogout}
           />
           <Menu.Item
           name='theme'
@@ -49,6 +61,7 @@ function MenuBar() {
         </Menu.Item>
         </Menu.Menu>
       </Menu>
+      
     )
   ) : (
     <Menu {...MenuStyle} >

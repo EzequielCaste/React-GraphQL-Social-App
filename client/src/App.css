@@ -71,3 +71,22 @@ h2 {
 .ui.modal>.content {
   color: rgba(0,0,0,.85);
 }
+.ui.vertical.segment {
+  margin-top: 2.5rem;
+}
+
+.ui.basic.inverted.button, 
+.ui.basic.inverted.buttons .button,
+.ui.basic.inverted.button:hover, 
+.ui.basic.inverted.buttons .button:hover,
+.ui.basic.inverted.button:active, 
+.ui.basic.inverted.buttons .button:active,
+.ui.basic.inverted.button:visited, 
+.ui.basic.inverted.buttons .button:visited,
+.ui.basic.inverted.button:focus, 
+.ui.basic.inverted.buttons .button:focus    {
+  border: none!important;
+  border: 0!important;
+  box-shadow: none!important;
+  width: auto;
+}

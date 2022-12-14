@@ -7,12 +7,12 @@ import CardsButtons from './CardsButtons';
 import { ThemeContext } from '../context/theme';
 
 const PostCard = ({
-  post: { body, createdAt, id, username, likeCount, commentCount, likes },
+  post: { body, createdAt, id, username, user: { photoURL }, likeCount, commentCount, likes },
 }) => {
   const { user } = useContext(AuthContext);  
   const { isDarkTheme } = useContext(ThemeContext);
 
-  const buttonSize = window.screen.width > 500 ? 'medium' : 'mini'
+  const buttonSize = window.screen.width > 500 ? 'medium' : 'mini';
 
   return (
     <Card fluid className={isDarkTheme ? 'dark' : null}>
@@ -20,7 +20,7 @@ const PostCard = ({
         <Image
           floated="right"
           size="mini"
-          src="https://react.semantic-ui.com/images/avatar/large/jenny.jpg"
+          src={photoURL}
         />
         <Card.Header>{username}</Card.Header>
         <Card.Meta as={Link} to={`/posts/${id}`}>

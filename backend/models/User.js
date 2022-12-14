@@ -4,7 +4,8 @@ const userSchema = new Schema({
   username: String,
   password: String,
   email: String,
-  createdAt: String
+  createdAt: String,
+  photoURL: { type: String, default: '' }
 });
 
 module.exports = model('User', userSchema);
