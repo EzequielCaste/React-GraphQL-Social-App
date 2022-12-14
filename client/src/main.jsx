@@ -12,8 +12,8 @@ import App from './App';
 import ThemeProvider from './context/theme';
 
 const httpLink = createHttpLink({
-  //uri: 'https://merng.fly.dev/',
-  uri: 'http://localhost:8080/'
+  uri: 'https://merng.fly.dev/',
+  //uri: 'http://localhost:8080/'
 });
 
 const authLink = setContext(() => {
