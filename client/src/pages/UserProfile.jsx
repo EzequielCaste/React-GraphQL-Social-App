@@ -1,30 +1,29 @@
 import React, { useContext, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { gql, useMutation } from '@apollo/client';
-import { Button, Card, Form, Icon, Image, Input, TextArea, Modal, Container, Popup } from 'semantic-ui-react';
+import { Button, Card, Form, Icon, Image, Label, TextArea, Modal, Container, Popup, Divider } from 'semantic-ui-react';
 import { AuthContext } from '../context/auth';
 import { useForm } from '../util/hooks';
 import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
 import { storage } from '../util/firestore';
 import { useEffect } from 'react';
+import { FETCH_POSTS_QUERY } from '../util/graphql';
 
 const UserProfile = ({ edit = false }) => {
   const [openModal, setOpenModal] = useState(false);
-  const [file, setFile] = useState("undefined")
+  const [file, setFile] = useState(null)
   const { userId } = useParams();
-  const { user } = useContext(AuthContext);
+  const { user, login } = useContext(AuthContext);
 
   const [newPhoto, setNewPhoto] = useState(user.photoURL)
-
-  const imageEditIcon = { position: 'absolute', margin: 0, top: 5, right: 5 }
 
   const { values, onChange, onSubmit } = useForm(updateProfileCallback, {
     photoURL: newPhoto
   });
 
   useEffect(() => {
-    if(user.photoURL !== newPhoto) {
-      updateUserMutation() 
+    if (user.photoURL !== newPhoto) {
+      updateUserMutation()
     }
   }, [newPhoto])
 
@@ -33,16 +32,21 @@ const UserProfile = ({ edit = false }) => {
       userId,
       photoURL: newPhoto
     },
-    update(store, { data: {updateUser} }) {      
+    refetchQueries: [{ query: FETCH_POSTS_QUERY }],
+    update(store, { data: { updateUser } }) {
+      localStorage.removeItem('jwtToken')
       localStorage.setItem('jwtToken', updateUser.token)
+      login(updateUser)
       setOpenModal(false);
+      setFile(null)
+
       values.photoURL = '';
     },
-    
+
   });
 
   function updateProfileCallback() {
-    uploadImage();    
+    uploadImage();
   }
 
   const uploadImage = async () => {
@@ -51,12 +55,12 @@ const UserProfile = ({ edit = false }) => {
     const imageRef = ref(storage, `images/${file.name}`)
 
     await uploadBytes(imageRef, file)
-    .then((snapshot) => {
-      getDownloadURL(snapshot.ref)
-      .then(url => {
-        setNewPhoto(url)
+      .then((snapshot) => {
+        getDownloadURL(snapshot.ref)
+          .then(url => {
+            setNewPhoto(url)
+          })
       })
-    })
   }
 
   if (user && user.id === userId) {
@@ -67,30 +71,32 @@ const UserProfile = ({ edit = false }) => {
           <Image
             src={newPhoto}
           />
-          {openModal ? <Form onSubmit={onSubmit} >
-            <Button as="label" htmlFor="file" type="button">
-              Choose file
-            </Button>
-            <input type="file" id="file" style={{ display: "none" }} onChange={e => setFile(e.target.files[0])} />
-            {/* <Input fluid onChange={e => setFile(e.target.files[0])} type="file" /> */}
-            <Button primary type="submit">Upload image</Button>
-          </Form> : null}
-          <Popup
-            trigger={
-              <Button
-                basic size='small'
-                inverted
-                icon="edit"
-                style={imageEditIcon}
-                onClick={() => setOpenModal(!openModal)}
-              />
+          <Form loading={loading} onSubmit={onSubmit} >
+            <Form.Field>
+              <Button as="label" htmlFor="file" type="button">
+                Choose file
+              </Button>
+              <input type="file" id="file" style={{ display: "none" }} onChange={e => setFile(e.target.files[0])} />
+              <Button primary type="submit">Upload image</Button>
+            </Form.Field>
+            {
+              file?.name && (
+                <Form.Field className='form-field-file'>
+                  <Label className='form-selected-file'>
+                    <Icon name='file' />
+                    {file.name}
+                    <Button
+                      basic size='small'
+                      inverted
+                      icon="delete"
+                      onClick={() => setFile(null)}
+                    />
+                  </Label>
+                </Form.Field>
+              )
             }
-          >
-            <Popup.Content>
-              <p>Change profile picture</p>
-            </Popup.Content>
-          </Popup>
-
+          </Form>
+          
           <Card.Content>
             <Card.Header>{user.username}</Card.Header>
             <Card.Meta>Joined in 2016</Card.Meta>

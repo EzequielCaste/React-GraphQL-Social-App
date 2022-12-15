@@ -56,10 +56,11 @@ body {
   background: #1b1c1df7;
   color: #fff!important;
 }
-.dark .ui.form .field>label,
-h2 {
-  color: #fff!important;
-}
+.ui.form .field>label {
+  margin: 1rem 1rem 0 0;
+  font-size: 1rem!important;
+  display: inline!important;
+} 
 .dark .ui.fluid.card {
   background: #EFFBFF;
 }
@@ -89,4 +90,21 @@ h2 {
   border: 0!important;
   box-shadow: none!important;
   width: auto;
+  color: rgba(0,0,0,.6)!important;
+}
+.ui.form {
+  padding-bottom: 1rem;
+}
+.ui.small.basic.button {
+  padding: 0;
+  margin: 0;
+  height: fit-content;
+}
+.form-field-file {
+  place-content: center;
+  display: flex;
+}
+.form-selected-file {
+  display: flex!important;
+  width: fit-content;
 }
