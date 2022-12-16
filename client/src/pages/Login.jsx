@@ -7,7 +7,7 @@ import { useForm } from '../util/hooks';
 
 import { Button, Form } from 'semantic-ui-react';
 
-function Login(props) {
+function Login() {
   const context = useContext(AuthContext);
   let navigate = useNavigate();
   const [errors, setErrors] = useState({});

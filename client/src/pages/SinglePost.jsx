@@ -43,7 +43,7 @@ const SinglePost = ({edit = false}) => {
 
 
   if(!getPost) {
-    postMarkup = <h1 className='page-title' textAlign='center'>Loading post...</h1>;
+    postMarkup = <h1 className='page-title'>Loading post...</h1>;
   } else {
 
     const {

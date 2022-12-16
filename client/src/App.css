@@ -1,4 +1,4 @@
-#root > .container {  
+#root > .container {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -29,7 +29,7 @@
 
 @media (max-width: 500px) {
   .ui.divided.horizontal.list {
-    width: 90%!important;
+    width: 90% !important;
     margin-top: 3rem;
   }
 }
@@ -45,7 +45,7 @@
     justify-content: center;
   }
   .ui.doubling.grid {
-    width: auto;    
+    width: auto;
   }
 }
 
@@ -54,43 +54,51 @@ body {
 }
 .dark {
   background: #1b1c1df7;
+  color: #fff !important;
+}
+.ui.form .field > label {
+  margin: 1rem 1rem 0 0;
+  font-size: 1rem !important;
+  display: inline !important;
+}
+
+.dark .ui.form .field > label {
   color: #fff!important;
 }
-.ui.form .field>label {
-  margin: 1rem 1rem 0 0;
-  font-size: 1rem!important;
-  display: inline!important;
-} 
+.dark .ui.form .field > label.choose-file-btn {
+  color: #000!important;
+}
+
 .dark .ui.fluid.card {
-  background: #EFFBFF;
+  background: #effbff;
 }
 .dark .ui.basic.teal.label,
 .dark .ui.basic.blue.label {
-  background: #EFFBFF!important;
+  background: #effbff !important;
 }
 .content > p,
-.ui.modal>.content {
-  color: rgba(0,0,0,.85);
+.ui.modal > .content {
+  color: rgba(0, 0, 0, 0.85);
 }
 .ui.vertical.segment {
   margin-top: 2.5rem;
 }
 
-.ui.basic.inverted.button, 
+.ui.basic.inverted.button,
 .ui.basic.inverted.buttons .button,
-.ui.basic.inverted.button:hover, 
+.ui.basic.inverted.button:hover,
 .ui.basic.inverted.buttons .button:hover,
-.ui.basic.inverted.button:active, 
+.ui.basic.inverted.button:active,
 .ui.basic.inverted.buttons .button:active,
-.ui.basic.inverted.button:visited, 
+.ui.basic.inverted.button:visited,
 .ui.basic.inverted.buttons .button:visited,
-.ui.basic.inverted.button:focus, 
-.ui.basic.inverted.buttons .button:focus    {
-  border: none!important;
-  border: 0!important;
-  box-shadow: none!important;
+.ui.basic.inverted.button:focus,
+.ui.basic.inverted.buttons .button:focus {
+  border: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
   width: auto;
-  color: rgba(0,0,0,.6)!important;
+  color: rgba(0, 0, 0, 0.6) !important;
 }
 .ui.form {
   padding-bottom: 1rem;
@@ -105,6 +113,6 @@ body {
   display: flex;
 }
 .form-selected-file {
-  display: flex!important;
+  display: flex !important;
   width: fit-content;
 }

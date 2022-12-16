@@ -10,6 +10,7 @@ function generateToken(user){
   return jwt.sign({
     id: user.id,
     email: user.email,
+    createdAt: user.createdAt,
     username: user.username,
     photoURL: user.photoURL
   }, process.env.SECRET_KEY, {
@@ -23,6 +24,14 @@ module.exports = {
       try {
         const users = await User.find();
         return users;
+      } catch (error) {
+        throw new Error(error);
+      }
+    },
+    async getUser(_, { userId }) {
+      try {
+        const user = await User.findOne({ _id: userId });
+        return user;
       } catch (error) {
         throw new Error(error);
       }
