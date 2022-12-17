@@ -7,10 +7,13 @@ import { useMutation } from '@apollo/client';
 import moment from 'moment';
 
 import { FETCH_POSTS_QUERY, UPDATE_USER_MUTATION } from '../util/graphql';
+import { useContext } from 'react';
+import { AuthContext } from '../context/auth';
 
 const UserDetails = ({ user, auth = false }) => {
   const [newPhoto, setNewPhoto] = useState(user?.photoURL);
   const [file, setFile] = useState(null)
+  const { login } = useContext(AuthContext)
   const { values, onChange, onSubmit } = useForm(updateProfileCallback, {
     photoURL: newPhoto
   });
@@ -30,8 +33,8 @@ const UserDetails = ({ user, auth = false }) => {
     update(store, { data: { updateUser } }) {
       localStorage.removeItem('jwtToken')
       localStorage.setItem('jwtToken', updateUser.token)
+      
       login(updateUser)
-      setOpenModal(false);
       setFile(null)
 
       values.photoURL = '';

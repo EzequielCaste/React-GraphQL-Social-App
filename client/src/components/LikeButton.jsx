@@ -16,7 +16,7 @@ function LikeButton({ buttonSize, user, post: { id, likeCount, likes = [] } }) {
     }
   }, [user, likes]);
 
-  const [likePost] = useMutation(LIKE_POST_MUTATION, {
+  const [likePost, { data, loading, error }] = useMutation(LIKE_POST_MUTATION, {
     variables: { postId: id }
   })
 
@@ -39,7 +39,7 @@ function LikeButton({ buttonSize, user, post: { id, likeCount, likes = [] } }) {
     <MyPopup
       content={liked ? 'Unlike' : 'Like'}
     >
-      <Button size={buttonSize} as="div" labelPosition="right" onClick={likePost}>
+      <Button size={buttonSize} as="div" labelPosition="right" onClick={() => user && likePost()}>
         {likeButton}
         <Label basic color="teal" pointing="left">
           {likeCount}
