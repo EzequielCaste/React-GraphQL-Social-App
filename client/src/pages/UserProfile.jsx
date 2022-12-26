@@ -10,7 +10,7 @@ const UserProfile = () => {
   const { userId } = useParams();
   const { user } = useContext(AuthContext);
 
-  if (user.id === userId) {
+  if(user != null && user.id === userId) {
     return (
       <UserDetails user={user} auth={user} />
       )
