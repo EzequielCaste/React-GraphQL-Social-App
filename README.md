@@ -12,7 +12,8 @@ I'm going to add the following features to improve on the base project:
 - [X] Allow user to edit their post
 - [X] Responsive layout for Mobile and Tablet
 - [X] Light/Dark Theme Selector
-- [ ] User Profile
+- [X] User Profile
+- [ ] Admin privileges, delete posts and comments
 
 
 
