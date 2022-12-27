@@ -12,7 +12,8 @@ function generateToken(user){
     email: user.email,
     createdAt: user.createdAt,
     username: user.username,
-    photoURL: user.photoURL
+    photoURL: user.photoURL,
+    isAdmin: user.isAdmin
   }, process.env.SECRET_KEY, {
     expiresIn: '1h'
   });
@@ -84,6 +85,7 @@ module.exports = {
     async register(_, { registerInput: { username, email, password, confirmPassword } }) {
       //Validate user data
       const { valid, errors } = validateRegisterInput(username, email, password, confirmPassword);
+      
       if(!valid) {
         throw new UserInputError('Errors', {errors})
       }

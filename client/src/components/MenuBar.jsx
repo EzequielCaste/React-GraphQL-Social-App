@@ -63,7 +63,9 @@ function MenuBar() {
             }
           </Dropdown.Menu>
         </Dropdown>
-
+        {
+          user.isAdmin && <Menu.Item>Admin</Menu.Item>
+        }
         <Menu.Menu position='right'>
           <Menu.Item
             name='logout'

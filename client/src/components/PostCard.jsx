@@ -10,9 +10,7 @@ const PostCard = ({
   post: { body, createdAt, id, username, user: postUser, likeCount, commentCount, likes },
 }) => {
   const { user } = useContext(AuthContext);  
-  const { isDarkTheme } = useContext(ThemeContext);
-
-  const buttonSize = window.screen.width > 500 ? 'medium' : 'mini';
+  const { isDarkTheme, buttonSize } = useContext(ThemeContext);
 
   return (
     <Card fluid className={isDarkTheme ? 'dark' : null}>

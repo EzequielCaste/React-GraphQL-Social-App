@@ -84,6 +84,7 @@ const LOGIN_USER = gql`
       username
       createdAt
       photoURL
+      isAdmin
       token      
     }
   }

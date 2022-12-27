@@ -2,11 +2,14 @@ import React, { useState, createContext } from 'react';
 
 export const ThemeContext = createContext({
   isDarkTheme: false,
-  toggleTheme: () => {}
+  toggleTheme: () => {},
+  buttonSize: 'mini'
 });
 
 function ThemeProvider(props){
   const currentTheme = localStorage.getItem('isDarkTheme') === 'false' ? false : true;
+
+  const buttonSize = window.screen.width > 500 ? 'medium' : 'mini';
 
   const [isDarkTheme, setIsDarkTheme] = useState(currentTheme);
 
@@ -22,7 +25,7 @@ function ThemeProvider(props){
   }
 
   return (
-    <ThemeContext.Provider value={{ isDarkTheme, toggleTheme }} 
+    <ThemeContext.Provider value={{ isDarkTheme, toggleTheme, buttonSize }} 
     {...props}
     />
   )

@@ -1,22 +1,26 @@
-import React, {useContext, useState, useRef} from 'react';
-import {useNavigate, useParams} from 'react-router-dom';
+import React, { useContext, useState, useRef } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import moment from 'moment';
 
-import {Button, Card, Form, Icon, Image, Grid, Label, Header} from 'semantic-ui-react';
+import { Button, Card, Form, Icon, Image, Grid, Label } from 'semantic-ui-react';
 
-import {gql, useMutation, useQuery} from '@apollo/client';
-import {AuthContext} from '../context/auth';
+import { gql, useMutation, useQuery } from '@apollo/client';
+import { AuthContext } from '../context/auth';
+import { ThemeContext } from '../context/theme';
 
 import LikeButton from '../components/LikeButton';
 import DeleteButton from '../components/DeleteButton';
+import CardsButtons from '../components/CardsButtons';
 
-const SinglePost = ({edit = false}) => {
-  const {postId} = useParams();
-  const {user} = useContext(AuthContext);
+const SinglePost = () => {
+  const { postId } = useParams();
+  const { user } = useContext(AuthContext);
+  const { buttonSize } = useContext(ThemeContext);
+
   const commentInputRef = useRef(null);
   const [comment, setComment] = useState('');
 
-  const {data: {getPost} = {}} = useQuery(FETCH_POST_QUERY, {
+  const { data: { getPost } = {} } = useQuery(FETCH_POST_QUERY, {
     variables: {
       postId,
     },
@@ -42,7 +46,7 @@ const SinglePost = ({edit = false}) => {
   let postMarkup;
 
 
-  if(!getPost) {
+  if (!getPost) {
     postMarkup = <h1 className='page-title'>Loading post...</h1>;
   } else {
 
@@ -78,28 +82,11 @@ const SinglePost = ({edit = false}) => {
                 <Card.Description>{body}</Card.Description>
               </Card.Content>
               <hr />
-              {!edit && (
-                <Card.Content extra>
-                  <LikeButton user={user} post={{id, likeCount, likes}} />
-                  <Button
-                    as="div"
-                    labelPosition="right"
-                    onClick={() => console.log('comment on post')}
-                  >
-                    <Button color="blue" basic>
-                      <Icon name="comments" />
-                    </Button>
-                    <Label basic color="blue" pointing="left">
-                      {commentCount}
-                    </Label>
-                  </Button>
-                  {user && user.username === username && (
-                    <DeleteButton postId={id} callback={deletePostCallback} />
-                  )}
-                </Card.Content>
-              )}
+              <Card.Content extra>
+                <CardsButtons user={{user, username}} buttonSize={buttonSize} post={{ id, likes, likeCount, commentCount, body }} />
+              </Card.Content>
             </Card>
-            {user && !edit && (
+            {user && (
               <Card fluid>
                 <Card.Content>
                   <p>Post a comment</p>
@@ -126,19 +113,18 @@ const SinglePost = ({edit = false}) => {
                 </Card.Content>
               </Card>
             )}
-            {!edit &&
-              comments.map((comment) => (
-                <Card fluid key={comment.id}>
-                  <Card.Content>
-                    {user && user.username === comment.username && (
-                      <DeleteButton postId={id} commentId={comment.id} />
-                    )}
-                    <Card.Header>{comment.username}</Card.Header>
-                    <Card.Meta>{moment(comment.createdAt).fromNow()}</Card.Meta>
-                    <Card.Description>{comment.body}</Card.Description>
-                  </Card.Content>
-                </Card>
-              ))}
+            {comments.map((comment) => (
+              <Card fluid key={comment.id}>
+                <Card.Content>
+                  {user && user.username === comment.username && (
+                    <DeleteButton postId={id} commentId={comment.id} />
+                  )}
+                  <Card.Header>{comment.username}</Card.Header>
+                  <Card.Meta>{moment(comment.createdAt).fromNow()}</Card.Meta>
+                  <Card.Description>{comment.body}</Card.Description>
+                </Card.Content>
+              </Card>
+            ))}
           </Grid.Column>
         </Grid.Row>
       </Grid>

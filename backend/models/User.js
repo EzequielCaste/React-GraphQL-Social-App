@@ -5,7 +5,8 @@ const userSchema = new Schema({
   password: String,
   email: String,
   createdAt: String,
-  photoURL: { type: String, default: '' }
+  photoURL: { type: String, default: '' },
+  isAdmin: Boolean
 });
 
 module.exports = model('User', userSchema);

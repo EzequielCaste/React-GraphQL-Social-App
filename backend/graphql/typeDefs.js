@@ -30,6 +30,7 @@ module.exports = gql`
     username: String!
     createdAt: String!
     photoURL: String
+    isAdmin: Boolean
   }
   input RegisterInput {
     username: String!
