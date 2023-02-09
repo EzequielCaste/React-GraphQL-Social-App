@@ -13,7 +13,7 @@ I'm going to add the following features to improve on the base project:
 - [X] Responsive layout for Mobile and Tablet
 - [X] Light/Dark Theme Selector
 - [X] User Profile
-- [ ] Admin privileges, delete posts and comments
+- [X] Admin privileges, delete posts and comments
 
 
 
